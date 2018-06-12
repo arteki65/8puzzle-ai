@@ -1,0 +1,9 @@
+<div class="board">
+  <app-board-tile *ngFor="let tile of tiles"
+    [tile]="tile"
+    [ngStyle]="tile.style">
+  </app-board-tile>
+</div>
+<button type="button" (click)="move()">Move</button>
+<button type="button" (click)="resolve()">Resolve</button>
+<p>h = {{ h }}</p>
