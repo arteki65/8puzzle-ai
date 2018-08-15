@@ -14,10 +14,12 @@ export class BoardTile {
     'opacity': number
   };
 
-  constructor(value: number, correctX: number, correctY: number) {
+  constructor(value: number, correctX: number, correctY: number, xPosition?: number, yPosition?: number) {
     this.value = value;
-    this.xPosition = this.correctX = correctX;
-    this.yPosition = this.correctY = correctY;
+    this.xPosition = xPosition;
+    this.correctX = correctX;
+    this.yPosition = yPosition;
+    this.correctY = correctY;
     this.style = {
       'grid-column': this.xPosition + ' / span 1',
       'grid-row': this.yPosition + ' / span 1',
@@ -67,6 +69,14 @@ export class BoardTile {
   isOk() {
     return (this.isBlank()) ||
       (this.yPosition === this.correctY && this.xPosition === this.correctX);
+  }
+
+  manhatanDist() {
+    if (this.isBlank()) {
+      return 0;
+    } else {
+      return Math.abs(this.xPosition - this.correctX) + Math.abs(this.yPosition - this.correctY);
+    }
   }
 
   possibleMoves(): Move[] {

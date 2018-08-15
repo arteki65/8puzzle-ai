@@ -16,7 +16,7 @@ export class BoardComponent implements OnInit {
   h = 0;
 
   constructor(private greedySearch: GreedySearchService) {
-    const tiles: BoardTile[] = [];
+    /*const tiles: BoardTile[] = [];
     tiles.push(new BoardTile(0, 2, 2));
     tiles.push(new BoardTile(1, 1, 1));
     tiles.push(new BoardTile(2, 2, 1));
@@ -36,9 +36,25 @@ export class BoardComponent implements OnInit {
         tile.setY(i + 1);
         tile.setX(j + 1);
       }
-    }
+    }*/
 
-    this.blankTile = this.board[0][0];
+    const tiles: BoardTile[] = [];
+    tiles.push(new BoardTile(0, 2, 2, 2, 1));
+    tiles.push(new BoardTile(1, 1, 1, 1, 1));
+    tiles.push(new BoardTile(2, 2, 1, 2, 2));
+    tiles.push(new BoardTile(3, 3, 1, 3, 1));
+    tiles.push(new BoardTile(4, 3, 2, 3, 2));
+    tiles.push(new BoardTile(5, 3, 3, 3, 3));
+    tiles.push(new BoardTile(6, 2, 3, 2, 3));
+    tiles.push(new BoardTile(7, 1, 3, 1, 3));
+    tiles.push(new BoardTile(8, 1, 2, 1, 2));
+
+    for (let i = 0; i < 3; i++) {
+      this.board[i] = [];
+    }
+    tiles.forEach(tile => this.board[tile.yPosition - 1][tile.xPosition - 1] = tile);
+
+    this.blankTile = tiles[0];
     console.log(this.blankTile);
     this.tiles = tiles;
     this.h = this.greedySearch.evaluateH(this.board);
@@ -55,12 +71,17 @@ export class BoardComponent implements OnInit {
   resolve() {
     const moves: Move[] = this.greedySearch.resolve(this.board, this.blankTile);
     console.log('result moves', moves);
-    let i = 0;
+    /*let i = 0;
     moves.forEach((move, index) => {
       console.log('make move ' + i++, move);
-      setTimeout(() => this.blankTile.move(move, this.board), 300 * (index + 1));
+      setTimeout(() => {
+        this.blankTile.move(move, this.board);
+        if (index === moves.length - 1) {
+          this.h = this.greedySearch.evaluateH(this.board);
+        }
+      }, 300 * (index + 1));
       // this.blankTile.move(move, this.board);
-    });
+    });*/
   }
 
   private moveBlank() {

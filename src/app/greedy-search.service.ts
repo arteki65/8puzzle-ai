@@ -40,7 +40,7 @@ export class GreedySearchService {
 
   iterateNodes(nodes: Node[], deep) {
     let lowestH = Number.MAX_SAFE_INTEGER;
-    let chosenNode = new Node(null, null, null, null);
+    let chosenNode = null;
     let chosenNodeIndex = 0;
     nodes.forEach((node, i) => {
       if (node.h < lowestH) {
@@ -51,7 +51,7 @@ export class GreedySearchService {
     });
 
     // resolved
-    if (chosenNode.h === 0 || deep === 100) {
+    if (chosenNode.h === 0 || deep === 1000) {
       return chosenNode;
     }
 
@@ -96,5 +96,13 @@ export class GreedySearchService {
       );
     });
     return h;
+    /*let h = 0;
+    board.forEach(row => {
+      row.forEach(tile => {
+          h += tile.manhatanDist();
+        }
+      );
+    });
+    return h;*/
   }
 }
